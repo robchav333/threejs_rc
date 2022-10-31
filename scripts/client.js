@@ -14,19 +14,34 @@ const camera = new THREE.PerspectiveCamera(
   1000
 );
 const renderer = new THREE.WebGLRenderer();
-renderer.setClearColor(0xdfdfdf);
+renderer.setClearColor(0x1660B2);
 renderer.setPixelRatio(window.devicePixelRatio);
 renderer.setSize(500, 500);
 document.body.appendChild(renderer.domElement);
 
 // Add a polygon to the scene
-const geometry = new THREE.IcosahedronGeometry(1, 0);
-const material = new THREE.MeshStandardMaterial({ color: 0x2e8e39 });
+const verticesOfCube = [
+    -1,-1,-1,    1,-1,-1,    1, 1,-1,    -1, 1,-1,
+    -1,-1, 1,    1,-1, 1,    1, 1, 1,    -1, 1, 1,
+];
+
+const indicesOfFaces = [
+    2,1,0,    0,3,2,
+    0,4,7,    7,3,0,
+    0,1,5,    5,4,0,
+    1,2,6,    6,5,1,
+    2,3,7,    7,6,2,
+    4,5,6,    6,7,4
+];
+
+const geometry = new THREE.PolyhedronGeometry( verticesOfCube, indicesOfFaces, 6, 2 );
+const material = new THREE.MeshStandardMaterial({ color: 0xf0c90a });
+
 const poly = new THREE.Mesh(geometry, material);
 scene.add(poly);
 
 // add wireframe to shape
-const matLineBasic = new THREE.LineBasicMaterial({ color: 0x2e8e99 });
+const matLineBasic = new THREE.LineBasicMaterial({ color: 0xf0c90a});
 const wireframe = new THREE.WireframeGeometry(geometry);
 const line = new THREE.LineSegments(wireframe, matLineBasic);
 line.material.depthTest = false;
