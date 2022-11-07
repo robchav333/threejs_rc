@@ -35,12 +35,13 @@ var newMaterial = new THREE.MeshStandardMaterial({ color: 0x2E5939 });
 
 // Variable for GLTF data
 var mesh;
+var mesh2;
 
 // Load GLTF model, add material, and add it to the scene
 const loader = new GLTFLoader().load(
   // "../../assets/ship222.glb", // comment this line out and un comment the line below to swithc models
   "../../assets/ship222.glb",
-  "../../assets/ship222.glb",
+
 
 
 
@@ -53,15 +54,16 @@ const loader = new GLTFLoader().load(
     });
     // set position and scale
     mesh = gltf.scene;
-    mesh.position.set(0, 0, 0);
-    mesh.rotation.set(45, 0, 0);
+    mesh2 = gltf.scene;
+    mesh.position.set(.8, 0.8, 0.8);
+    mesh.rotation.set(0, 0, 0);
     mesh.scale.set(.2, .2, .2);
 
-    mesh.position.set(0, 0, 0);
-    mesh.rotation.set(0, 45, 0);
-    mesh.scale.set(.1, .1, .1); // <-- change this to (1, 1, 1) for photogrammetery model
+   // <-- change this to (1, 1, 1) for photogrammetery model
     // Add model to scene
     scene.add(mesh);
+
+
   }
 
 
@@ -70,6 +72,43 @@ const loader = new GLTFLoader().load(
   // console.error(error);
   // }
 );
+
+
+const loader2 = new GLTFLoader().load(
+  // "../../assets/ship222.glb", // comment this line out and un comment the line below to swithc models
+  "../../assets/ship222.glb",
+
+
+
+
+  function(gltf) {
+    // Scan loaded model for mesh and apply defined material if mesh is present
+    gltf.scene.traverse(function(child) {
+      if (child.isMesh) {
+        //child.material = newMaterial;
+      }
+    });
+    // set position and scale
+
+    mesh2 = gltf.scene;
+
+
+    mesh2.position.set(0, 0, 0);
+    mesh2.rotation.set(0, 45, 0);
+    mesh2.scale.set(.1, .1, .1); // <-- change this to (1, 1, 1) for photogrammetery model
+    // Add model to scene
+
+    scene.add(mesh2);
+
+  }
+
+
+  // undefined,
+  // function(error) {
+  // console.error(error);
+  // }
+);
+
 
 
 
