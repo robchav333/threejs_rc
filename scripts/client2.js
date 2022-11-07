@@ -10,6 +10,7 @@ import * as THREE from "../build/three.module.js";
 import { OrbitControls } from "../src/OrbitControls.js";
 import { GLTFLoader } from "../src/GLTFLoader.js";
 
+
 //Identify div in HTML to place scene
 var container = document.getElementById("space");
 
@@ -25,7 +26,7 @@ const renderer = new THREE.WebGLRenderer();
 renderer.setClearColor(0xdfdfdf);
 renderer.setPixelRatio(window.devicePixelRatio);
 renderer.setSize(window.innerWidth / 2, window.innerHeight / 2);
-//renderer.setSize(400, 800);
+// renderer.setSize(400, 800);
 // Add scene to gltf.html
 container.appendChild(renderer.domElement);
 
@@ -37,8 +38,12 @@ var mesh;
 
 // Load GLTF model, add material, and add it to the scene
 const loader = new GLTFLoader().load(
-  "../../assets/testing123fogv3.glb", // comment this line out and un comment the line below to swithc models
-  //"./assets/gourd_web.glb", //<-- photogrammetery model
+  // "../../assets/ship222.glb", // comment this line out and un comment the line below to swithc models
+  "../../assets/ship222.glb",
+  "../../assets/ship222.glb",
+
+
+
   function(gltf) {
     // Scan loaded model for mesh and apply defined material if mesh is present
     gltf.scene.traverse(function(child) {
@@ -50,15 +55,23 @@ const loader = new GLTFLoader().load(
     mesh = gltf.scene;
     mesh.position.set(0, 0, 0);
     mesh.rotation.set(45, 0, 0);
-    mesh.scale.set(.2, .2, .2); // <-- change this to (1, 1, 1) for photogrammetery model
+    mesh.scale.set(.2, .2, .2);
+
+    mesh.position.set(0, 0, 0);
+    mesh.rotation.set(0, 45, 0);
+    mesh.scale.set(.1, .1, .1); // <-- change this to (1, 1, 1) for photogrammetery model
     // Add model to scene
     scene.add(mesh);
-  },
-  undefined,
-  function(error) {
-    console.error(error);
   }
+
+
+  // undefined,
+  // function(error) {
+  // console.error(error);
+  // }
 );
+
+
 
 // Add Orbit Controls
 const controls = new OrbitControls(camera, renderer.domElement);
